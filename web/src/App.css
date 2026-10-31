@@ -1,0 +1,391 @@
+:root {
+  --bg: #ffffff;
+  --panel: #f3f8fe;
+  --panel-alt: #e8f6fd;
+  --border: #bfe4fb;
+  --text: #002970;
+  --muted: #5b7a9e;
+  --accent: #00baf2;
+  --accent-text: #ffffff;
+  --low: #16a34a;
+  --medium: #d97706;
+  --high: #dc2626;
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #002970;
+    --panel: #073a85;
+    --panel-alt: #0a4a9e;
+    --border: #00baf2;
+    --text: #ffffff;
+    --muted: #bcd9f5;
+    --accent: #00baf2;
+    --accent-text: #002970;
+    color-scheme: dark;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+.app {
+  max-width: 900px;
+  margin: 0 auto;
+  min-height: 100vh;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border);
+}
+
+.brand {
+  font-weight: 700;
+  font-size: 1.2rem;
+  color: var(--text);
+}
+
+.nav nav {
+  display: flex;
+  gap: 8px;
+}
+
+.nav-btn {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--muted);
+  padding: 8px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.nav-btn.active {
+  color: var(--text);
+  border-color: var(--accent);
+  background: rgba(0, 186, 242, 0.12);
+}
+
+.screen {
+  padding: 20px;
+}
+
+.card {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 16px;
+}
+
+button {
+  font: inherit;
+}
+
+.record-btn {
+  background: var(--accent);
+  color: var(--accent-text);
+  border: none;
+  padding: 14px 24px;
+  border-radius: 999px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.record-btn.recording {
+  background: var(--high);
+  color: #ffffff;
+  animation: pulse 1.2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+.manual-fallback {
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.manual-fallback textarea {
+  background: var(--panel-alt);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px;
+  resize: vertical;
+}
+
+.manual-fallback button {
+  align-self: flex-start;
+  background: var(--accent);
+  border: none;
+  color: var(--accent-text);
+  padding: 8px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.manual-fallback button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.status {
+  color: var(--muted);
+}
+
+.status.error {
+  color: var(--high);
+}
+
+.badge-row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+
+.badge {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  background: var(--border);
+  color: var(--text);
+}
+
+.badge.courtroom {
+  background: var(--accent);
+  color: var(--accent-text);
+}
+
+.badge.cache {
+  background: var(--low);
+  color: #ffffff;
+}
+
+.badge.risk-low {
+  background: var(--low);
+  color: #ffffff;
+}
+
+.badge.risk-medium {
+  background: var(--medium);
+  color: #ffffff;
+}
+
+.badge.risk-high {
+  background: var(--high);
+  color: #ffffff;
+}
+
+.badge.escalate {
+  background: var(--high);
+  color: #ffffff;
+}
+
+.transcript {
+  color: var(--muted);
+}
+
+.category {
+  font-weight: 600;
+  margin-bottom: 4px;
+  color: var(--text);
+}
+
+.verdict-card {
+  background: var(--panel-alt);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 12px;
+  margin-top: 12px;
+}
+
+.verdict-card h3 {
+  margin-top: 0;
+  color: var(--text);
+}
+
+.courtroom {
+  margin-top: 16px;
+}
+
+.courtroom h3 {
+  color: var(--text);
+}
+
+.tabs {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 8px;
+}
+
+.tab {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--muted);
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.tab.active {
+  color: var(--accent-text);
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.tab-content {
+  background: var(--panel-alt);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 12px;
+  color: var(--text);
+}
+
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.dashboard-header h2 {
+  color: var(--text);
+}
+
+.dashboard-header button {
+  background: var(--accent);
+  border: none;
+  color: var(--accent-text);
+  padding: 6px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.tiles {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.tile {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 16px;
+  text-align: center;
+}
+
+.tile-value {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.tile-label {
+  color: var(--muted);
+  font-size: 0.85rem;
+  margin-top: 4px;
+}
+
+.bar-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.bar-label {
+  width: 180px;
+  flex-shrink: 0;
+  font-size: 0.9rem;
+  color: var(--text);
+}
+
+.bar-track {
+  flex: 1;
+  background: var(--panel-alt);
+  border-radius: 6px;
+  height: 10px;
+  overflow: hidden;
+}
+
+.bar-fill {
+  background: var(--accent);
+  height: 100%;
+}
+
+.bar-count {
+  width: 28px;
+  text-align: right;
+  color: var(--muted);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  text-align: left;
+  padding: 8px;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.9rem;
+  color: var(--text);
+}
+
+th {
+  color: var(--muted);
+  font-weight: 500;
+}
+
+.mindmap-node {
+  margin-bottom: 8px;
+}
+
+.mindmap-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 0;
+  color: var(--text);
+}
+
+.depth-0 > .mindmap-label {
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.depth-1 > .mindmap-label {
+  font-weight: 600;
+  color: var(--accent);
+}
+
+.depth-2 > .mindmap-label {
+  color: var(--text);
+}
+
+.mindmap-children {
+  margin-left: 20px;
+  padding-left: 12px;
+  border-left: 1px solid var(--border);
+}
