@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+venv/
+.venv/
+.env
+callsense.db
+backend/callsense.db
+node_modules/
+dist/
+.DS_Store

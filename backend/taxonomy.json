@@ -1,0 +1,45 @@
+{
+  "Failed Transactions": [
+    "Bank server downtime",
+    "UPI timeout",
+    "Wallet debited but not credited",
+    "Merchant not credited",
+    "Transaction stuck in pending"
+  ],
+  "KYC": [
+    "Document rejected",
+    "Video KYC failed",
+    "Limit not upgraded",
+    "KYC pending for too long"
+  ],
+  "Fraud": [
+    "Unauthorized transaction",
+    "Account hacked",
+    "Phishing SMS or link",
+    "Fake customer care call"
+  ],
+  "Refunds": [
+    "Refund delayed",
+    "Refund not initiated",
+    "Wrong amount refunded",
+    "Refund credited to wrong account"
+  ],
+  "Recharge & Bill Payments": [
+    "Recharge failed but amount deducted",
+    "Bill payment not reflected",
+    "Wrong plan activated",
+    "Duplicate bill payment"
+  ],
+  "Account & Login": [
+    "OTP not received",
+    "App login failure",
+    "Account locked",
+    "Mobile number change request"
+  ],
+  "Merchant & QR": [
+    "QR code not scanning",
+    "Merchant payment not settled",
+    "Soundbox not working",
+    "Settlement delay to merchant bank account"
+  ]
+}
