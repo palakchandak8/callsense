@@ -3,6 +3,7 @@ import "./App.css";
 import LiveCall from "./screens/LiveCall";
 import Dashboard from "./screens/Dashboard";
 import MindMap from "./screens/MindMap";
+import ThemeToggle, { useTheme } from "./components/ThemeToggle";
 
 const SCREENS = {
   call: { label: "Live Call", component: LiveCall },
@@ -12,6 +13,7 @@ const SCREENS = {
 
 function App() {
   const [screen, setScreen] = useState("call");
+  const [theme, setTheme] = useTheme();
   const Active = SCREENS[screen].component;
 
   return (
@@ -28,6 +30,7 @@ function App() {
               {label}
             </button>
           ))}
+          <ThemeToggle theme={theme} setTheme={setTheme} />
         </nav>
       </header>
       <main>

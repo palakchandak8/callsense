@@ -1,5 +1,12 @@
 import { useEffect, useState } from "react";
+import {
+  BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
+  PieChart, Pie, Cell, Legend,
+} from "recharts";
 import { getDashboard } from "../api";
+
+const RISK_COLORS = { low: "#1f9d55", medium: "#d98c12", high: "#e3463a" };
+const CAT_COLORS = ["#00a3dc", "#7c6cf0", "#20c997", "#f5a623", "#ef5da8", "#4cd9c0"];
 
 export default function Dashboard() {
   const [data, setData] = useState(null);
@@ -17,8 +24,6 @@ export default function Dashboard() {
   if (error) return <div className="screen"><p className="status error">{error}</p></div>;
   if (!data) return <div className="screen"><p className="status">Loading…</p></div>;
 
-  const maxCategoryCount = Math.max(1, ...data.by_category.map((c) => c.count));
-
   return (
     <div className="screen">
       <div className="dashboard-header">
@@ -33,31 +38,57 @@ export default function Dashboard() {
         <Tile label="Courtroom calls saved" value={data.calls_saved} />
       </div>
 
-      <div className="card">
-        <h3>Complaints by category</h3>
-        {data.by_category.length === 0 && <p className="status">No calls yet.</p>}
-        {data.by_category.map((row) => (
-          <div className="bar-row" key={row.category}>
-            <span className="bar-label">{row.category}</span>
-            <div className="bar-track">
-              <div
-                className="bar-fill"
-                style={{ width: `${(row.count / maxCategoryCount) * 100}%` }}
-              />
-            </div>
-            <span className="bar-count">{row.count}</span>
-          </div>
-        ))}
-      </div>
+      <div className="chart-grid">
+        <div className="card">
+          <h3>Complaints by category</h3>
+          {data.by_category.length === 0 ? (
+            <p className="status">No calls yet.</p>
+          ) : (
+            <ResponsiveContainer width="100%" height={Math.max(180, data.by_category.length * 48)}>
+              <BarChart data={data.by_category} layout="vertical" margin={{ left: 24, right: 16 }}>
+                <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" horizontal={false} />
+                <XAxis type="number" allowDecimals={false} stroke="var(--muted)" fontSize={12} />
+                <YAxis type="category" dataKey="category" width={150} stroke="var(--muted)" fontSize={12} />
+                <Tooltip
+                  contentStyle={{ background: "var(--panel)", border: "1px solid var(--border)", color: "var(--text)" }}
+                  cursor={{ fill: "var(--accent-soft)" }}
+                />
+                <Bar dataKey="count" radius={[0, 6, 6, 0]}>
+                  {data.by_category.map((_, i) => (
+                    <Cell key={i} fill={CAT_COLORS[i % CAT_COLORS.length]} />
+                  ))}
+                </Bar>
+              </BarChart>
+            </ResponsiveContainer>
+          )}
+        </div>
 
-      <div className="card">
-        <h3>Risk split</h3>
-        <div className="badge-row">
-          {data.by_risk.map((row) => (
-            <span className={`badge risk-${row.risk_level}`} key={row.risk_level}>
-              {row.risk_level}: {row.count}
-            </span>
-          ))}
+        <div className="card">
+          <h3>Risk split</h3>
+          {data.by_risk.length === 0 ? (
+            <p className="status">No calls yet.</p>
+          ) : (
+            <ResponsiveContainer width="100%" height={220}>
+              <PieChart>
+                <Pie
+                  data={data.by_risk}
+                  dataKey="count"
+                  nameKey="risk_level"
+                  innerRadius={55}
+                  outerRadius={85}
+                  paddingAngle={3}
+                >
+                  {data.by_risk.map((row) => (
+                    <Cell key={row.risk_level} fill={RISK_COLORS[row.risk_level] || "#00a3dc"} />
+                  ))}
+                </Pie>
+                <Tooltip
+                  contentStyle={{ background: "var(--panel)", border: "1px solid var(--border)", color: "var(--text)" }}
+                />
+                <Legend />
+              </PieChart>
+            </ResponsiveContainer>
+          )}
         </div>
       </div>
 
